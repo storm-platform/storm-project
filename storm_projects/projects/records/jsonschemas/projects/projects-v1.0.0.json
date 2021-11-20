@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "local://projects/projects-v1.0.0.json",
+  "title": "Storm Project Schema v1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "$ref": "local://definitions-v1.0.0.json#/$schema"
+    },
+    "id": {
+      "$ref": "local://definitions-v1.0.0.json#/identifier"
+    },
+    "pid": {
+      "$ref": "local://definitions-v1.0.0.json#/internal-pid"
+    },
+    "access": {
+      "type": "object",
+      "description": "Resource access information",
+      "additionalProperties": false,
+      "properties": {
+        "owned_by": {
+          "description": "List of project owners",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "local://records/definitions-v2.0.0.json#/agent"
+          }
+        },
+        "contributed_by": {
+          "description": "List of project users",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "local://records/definitions-v2.0.0.json#/agent"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Resource metadata.",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "description": "Primary title of the record.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description for record (may contain HTML).",
+          "type": "string"
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "description": "Subject names",
+            "type": "string"
+          }
+        },
+        "rights": {
+          "description": "Any license or copyright information for this resource.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "description": "The license name or license itself. Free text.",
+                "type": "string"
+              },
+              "description": {
+                "description": "The license description Free text.",
+                "type": "string"
+              },
+              "link": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ext": {
+      "type": "object",
+      "description": "Configured additional metadata"
+    }
+  }
+}

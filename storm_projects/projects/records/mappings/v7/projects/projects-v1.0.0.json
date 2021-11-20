@@ -1,0 +1,66 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "access": {
+        "properties": {
+          "owned_by": {
+            "properties": {
+              "user": {
+                "type": "keyword"
+              }
+            }
+          },
+          "contributed_by": {
+            "properties": {
+              "user": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "metadata": {
+        "properties": {
+          "title": {
+            "type": "text"
+          },
+          "description": {
+            "type": "text"
+          },
+          "rights": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "text"
+              },
+              "description": {
+                "type": "text"
+              },
+              "link": {
+                "type": "keyword",
+                "index": false
+              }
+            }
+          },
+          "subjects": {
+            "type": "text"
+          }
+        }
+      },
+      "created": {
+        "type": "date"
+      },
+      "updated": {
+        "type": "date"
+      },
+      "is_finished": {
+        "type": "boolean"
+      }
+    }
+  }
+}
