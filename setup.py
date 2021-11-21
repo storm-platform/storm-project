@@ -59,7 +59,7 @@ setup(
     platforms="any",
     entry_points={
         "invenio_config.module": [
-            "storm_ws = storm_projects.config",
+            "storm_projects = storm_projects.config",
         ],
         "invenio_base.apps": [
             "storm_projects = storm_projects:StormProjects",
