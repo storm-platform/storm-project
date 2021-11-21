@@ -32,7 +32,7 @@
 About
 =====
 
-Module that adds support for Research Projects. Based on `invenio-communities <https://github.com/inveniosoftware/invenio-communities>`_ implementation model.
+Module that adds support for Research Projects. Based on `invenio-communities <https://github.com/inveniosoftware/invenio-communities>`_ `implementation model <https://github.com/inveniosoftware/rfcs/blob/master/rfcs/rdm-0047-communities-core.md>`_.
 
 - Free software: MIT license;
 - Documentation: https://storm-projects.readthedocs.io/
