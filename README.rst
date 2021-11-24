@@ -9,7 +9,7 @@
 ================================================
 
 .. image:: https://img.shields.io/badge/license-MIT-green
-        :target: https://github.com/storm-platform/storm-projects/blob/master/LICENSE
+        :target: https://github.com/storm-platform/storm-project/blob/master/LICENSE
         :alt: Software License
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
@@ -19,11 +19,11 @@
         :target: https://www.tidyverse.org/lifecycle/#maturing
         :alt: Software Life Cycle
 
-.. image:: https://img.shields.io/pypi/dm/storm-projects.svg
-        :target: https://pypi.python.org/pypi/storm-projects
+.. image:: https://img.shields.io/pypi/dm/storm-project.svg
+        :target: https://pypi.python.org/pypi/storm-project
 
-.. image:: https://img.shields.io/github/tag/storm-platform/storm-projects.svg
-        :target: https://github.com/storm-platform/storm-projects/releases
+.. image:: https://img.shields.io/github/tag/storm-platform/storm-project.svg
+        :target: https://github.com/storm-platform/storm-project/releases
 
 .. image:: https://img.shields.io/discord/689541907621085198?logo=discord&logoColor=ffffff&color=7389D8
         :target: https://discord.com/channels/689541907621085198#
