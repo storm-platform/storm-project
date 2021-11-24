@@ -38,7 +38,7 @@ class Agent(Schema):
 
 class ResearchProjectAccessSchema(Schema):
     owned_by = fields.List(fields.Nested(Agent), required=False)
-    generated_by = fields.List(fields.Nested(Agent), required=False)
+    contributed_by = fields.List(fields.Nested(Agent), required=False)
 
 
 class ResearchProjectRightsSchema(Schema):
