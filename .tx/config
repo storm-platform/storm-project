@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2021 Storm Project.
 #
-# storm-projects is free software; you can redistribute it and/or modify it
+# storm-project is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 # TODO: Transifex integration
@@ -25,8 +25,8 @@
 [main]
 host = https://www.transifex.com
 
-[invenio.storm-projects-messages]
-file_filter = storm_projects/translations/<lang>/LC_MESSAGES/messages.po
-source_file = storm_projects/translations/messages.pot
+[invenio.storm-project-messages]
+file_filter = storm_project/translations/<lang>/LC_MESSAGES/messages.po
+source_file = storm_project/translations/messages.pot
 source_lang = en
 type = PO

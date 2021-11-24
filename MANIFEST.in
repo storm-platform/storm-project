@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2021 Storm Project.
 #
-# storm-projects is free software; you can redistribute it and/or modify it
+# storm-project is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 # TODO: Generate this manifest file by running the following commands:
@@ -18,4 +18,4 @@ include .editorconfig
 include .tx/config
 prune docs/_build
 recursive-include .github/workflows *.yml
-recursive-include storm_projects/translations *.po *.pot *.mo
+recursive-include storm_project/translations *.po *.pot *.mo

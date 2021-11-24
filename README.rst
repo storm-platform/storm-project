@@ -1,7 +1,7 @@
 ..
     Copyright (C) 2021 Storm Project.
 
-    storm-projects is free software; you can redistribute it and/or modify
+    storm-project is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
 
 ================================================
@@ -35,4 +35,4 @@ About
 Module that adds support for Research Projects. Based on `invenio-communities <https://github.com/inveniosoftware/invenio-communities>`_ `implementation model <https://github.com/inveniosoftware/rfcs/blob/master/rfcs/rdm-0047-communities-core.md>`_.
 
 - Free software: MIT license;
-- Documentation: https://storm-projects.readthedocs.io/
+- Documentation: https://storm-project.readthedocs.io/

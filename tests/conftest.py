@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2021 Felipe Menino Carlos.
 #
-# storm-projects is free software; you can redistribute it and/or modify it
+# storm-project is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Pytest configuration.
@@ -18,11 +18,11 @@ import pytest
 from flask import Flask
 from flask_babelex import Babel
 
-from storm_projects import StormProjects
-from storm_projects.views import blueprint
+from storm_project import StormProject
+from storm_project.views import blueprint
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def celery_config():
     """Override pytest-invenio fixture.
 
@@ -31,14 +31,16 @@ def celery_config():
     return {}
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def create_app(instance_path):
     """Application factory fixture."""
+
     def factory(**config):
-        app = Flask('testapp', instance_path=instance_path)
+        app = Flask("testapp", instance_path=instance_path)
         app.config.update(**config)
         Babel(app)
-        StormProjects(app)
+        StormProject(app)
         app.register_blueprint(blueprint)
         return app
+
     return factory

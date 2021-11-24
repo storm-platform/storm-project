@@ -2,10 +2,10 @@
 #
 # Copyright (C) 2021 Storm Project.
 #
-# storm-projects is free software; you can redistribute it and/or modify it
+# storm-project is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Storm module that adds support for Projects."""
+"""Storm module that adds support for Project."""
 
 import os
 
@@ -39,45 +39,45 @@ packages = find_packages()
 
 # Get the version string. Cannot be done with import!
 g = {}
-with open(os.path.join("storm_projects", "version.py"), "rt") as fp:
+with open(os.path.join("storm_project", "version.py"), "rt") as fp:
     exec(fp.read(), g)
     version = g["__version__"]
 
 setup(
-    name="storm-projects",
+    name="storm-project",
     version=version,
     description=__doc__,
     long_description=readme + "\n\n" + history,
-    keywords="invenio TODO",
+    keywords=["Storm Platform", "Research projects", "Invenio module"],
     license="MIT",
     author="Felipe Menino Carlos",
     author_email="felipe.carlos@inpe.br",
-    url="https://github.com/storm-platform/storm-projects",
+    url="https://github.com/storm-platform/storm-project",
     packages=packages,
     zip_safe=False,
     include_package_data=True,
     platforms="any",
     entry_points={
         "invenio_config.module": [
-            "storm_projects = storm_projects.config",
+            "storm_project = storm_project.config",
         ],
         "invenio_base.apps": [
-            "storm_projects = storm_projects:StormProjects",
+            "storm_project = storm_project:StormProject",
         ],
         "invenio_base.api_apps": [
-            "storm_projects = storm_projects:StormProjects",
+            "storm_project = storm_project:StormProject",
         ],
         "invenio_base.api_blueprints": [
-            "storm_projects_api = storm_projects.views:create_research_project_blueprint_api"
+            "storm_project_api = storm_project.views:create_research_project_blueprint_api"
         ],
         "invenio_db.models": [
-            "storm_projects = storm_projects.projects.records.models"
+            "storm_project = storm_project.project.records.models"
         ],
         "invenio_search.mappings": [
-            "projects = storm_projects.projects.records.mappings"
+            "project = storm_project.project.records.mappings"
         ],
         "invenio_jsonschemas.schemas": [
-            "projects = storm_projects.projects.records.jsonschemas"
+            "project = storm_project.project.records.jsonschemas"
         ]
         # 'invenio_access.actions': [],
         # 'invenio_admin.actions': [],
