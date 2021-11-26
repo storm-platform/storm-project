@@ -18,11 +18,28 @@ tests_require = [
     "pytest-invenio>=1.4.0",
 ]
 
+invenio_db_version = ">=1.0.9,<2.0.0"
+invenio_search_version = ">=1.4.2,<2.0.0"
+
 extras_require = {
     "docs": [
         "Sphinx>=3,<4",
     ],
     "tests": tests_require,
+    # Elasticsearch
+    "elasticsearch7": [
+        f"invenio-search[elasticsearch7]{invenio_search_version}",
+    ],
+    # Databases
+    "mysql": [
+        f"invenio-db[mysql,versioning]{invenio_db_version}",
+    ],
+    "postgresql": [
+        f"invenio-db[postgresql,versioning]{invenio_db_version}",
+    ],
+    "sqlite": [
+        f"invenio-db[versioning]{invenio_db_version}",
+    ],
 }
 
 extras_require["all"] = [req for _, reqs in extras_require.items() for req in reqs]
@@ -32,7 +49,8 @@ setup_requires = [
 ]
 
 install_requires = [
-    "invenio-i18n>=1.2.0",
+    "invenio-drafts-resources>=0.14.0,<0.15.0",
+    "invenio-records-resources>=0.17.0,<0.18",
 ]
 
 packages = find_packages()
@@ -70,12 +88,8 @@ setup(
         "invenio_base.api_blueprints": [
             "storm_project_api = storm_project.views:create_research_project_blueprint_api"
         ],
-        "invenio_db.models": [
-            "storm_project = storm_project.project.records.models"
-        ],
-        "invenio_search.mappings": [
-            "project = storm_project.project.records.mappings"
-        ],
+        "invenio_db.models": ["storm_project = storm_project.project.records.models"],
+        "invenio_search.mappings": ["project = storm_project.project.records.mappings"],
         "invenio_jsonschemas.schemas": [
             "project = storm_project.project.records.jsonschemas"
         ]
