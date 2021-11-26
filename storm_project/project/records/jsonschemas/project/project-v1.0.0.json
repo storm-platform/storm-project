@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "local://projects/projects-v1.0.0.json",
+  "id": "local://project/project-v1.0.0.json",
   "title": "Storm Project Schema v1.0.0",
   "type": "object",
   "additionalProperties": false,
@@ -24,7 +24,7 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "$ref": "local://records/definitions-v2.0.0.json#/agent"
+            "$ref": "local://project/definitions-v1.0.0.json#/agent"
           }
         },
         "contributed_by": {
@@ -32,7 +32,7 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "$ref": "local://records/definitions-v2.0.0.json#/agent"
+            "$ref": "local://project/definitions-v1.0.0.json#/agent"
           }
         }
       }
@@ -50,11 +50,116 @@
           "description": "Description for record (may contain HTML).",
           "type": "string"
         },
+        "version": {
+          "description": "Record version tag.",
+          "type": "string"
+        },
         "subjects": {
           "type": "array",
           "items": {
             "description": "Subject names",
             "type": "string"
+          }
+        },
+        "creators": {
+          "description": "Creators of the resource.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "person_or_org": {
+                "$ref": "local://project/definitions-v1.0.0.json#/person_or_org"
+              }
+            }
+          }
+        },
+        "contributors": {
+          "description": "Contributors in order of importance.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "person_or_org": {
+                "$ref": "local://project/definitions-v1.0.0.json#/person_or_org"
+              }
+            }
+          }
+        },
+        "dates": {
+          "description": "Date or date interval.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "date": {
+                "description": "Date or date interval in EDTF level 0 format",
+                "type": "string"
+              },
+              "type": {
+                "$ref": "local://project/definitions-v1.0.0.json#/dateType"
+              },
+              "description": {
+                "description": "Description of the date or date interval e.g. 'Accepted' or 'Available' (CV).",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "locations": {
+          "description": "Geographical locations relevant to this record.",
+          "$comment": "This part of the schema is modelled on GeoJSON, but without the scope to embed arbitrary metadata.\n\nWe nest `features` within `locations` to give scope later to say something about the locations as a whole.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "features": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "geometry": {
+                        "allOf": [
+                          {
+                            "$ref": "local://project/definitions-v1.0.0.json#/GeoJSON-Geometry"
+                          },
+                          {
+                            "$comment": "Bounding boxes (`bbox`) are forbidden on our geometries, even though they're allowed on GeoJSON geometries",
+                            "properties": {
+                              "type": {},
+                              "coordinates": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "identifiers": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "local://definitions-v1.0.0.json#/identifiers_with_scheme"
+                        },
+                        "uniqueItems": true
+                      },
+                      "place": {
+                        "description": "Place of the location",
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "description": {
+                        "description": "Description of the location",
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           }
         },
         "rights": {
