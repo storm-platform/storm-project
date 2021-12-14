@@ -7,11 +7,12 @@
 
 """Storm module that adds support for Projects."""
 
-from . import config
-from .project.resources.config import ResearchProjectResourceConfig
-from .project.resources.resource import ResearchProjectResource
-from .project.services.config import ResearchProjectServiceConfig
-from .project.services.service import ResearchProjectService
+from storm_project.project.services.service import ResearchProjectService
+from storm_project.project.resources.resource import ResearchProjectResource
+from storm_project.project.services.config import ResearchProjectServiceConfig
+from storm_project.project.resources.config import ResearchProjectResourceConfig
+
+import storm_project.config as config
 
 
 class StormProject(object):
@@ -24,6 +25,7 @@ class StormProject(object):
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
+
         self.init_services(app)
         self.init_resources(app)
 
@@ -32,10 +34,6 @@ class StormProject(object):
     def init_config(self, app):
         """Initialize configuration."""
         for k in dir(config):
-            # Configurations for the invenio-jsonschemas and invenio-records components
-            if k.startswith("JSONSCHEMAS") or k.startswith("RECORDS"):
-                app.config.setdefault(k, getattr(config, k))
-
             # Configurations for the storm-oauth
             if k.startswith("STORM_PROJECTS_"):
                 app.config.setdefault(k, getattr(config, k))
