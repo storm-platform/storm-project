@@ -13,6 +13,7 @@ from marshmallow import (
     ValidationError,
     post_load,
 )
+
 from marshmallow_utils.fields import (
     NestedAttribute,
     SanitizedUnicode,
@@ -21,25 +22,8 @@ from marshmallow_utils.fields import (
 
 from marshmallow_utils.schemas import GeometryObjectSchema
 
+from storm_commons.schema.validators import marshmallow_not_blank_field
 from invenio_records_resources.services.records.schema import BaseRecordSchema
-
-
-def _not_blank(**kwargs):
-    """Returns a non-blank validation rule.
-    See:
-        This code was adapted from: https://github.com/inveniosoftware/invenio-communities/blob/837f33f1c0013a69fcec0ef188200a99fafddc47/invenio_communities/communities/schema.py#L21
-    """
-    max_ = kwargs.get("max", "")
-    return validate.Length(
-        error=f"Not empty string and less than {max_} characters allowed.",
-        min=1,
-        **kwargs,
-    )
-
-
-def geo_names_valid(identifier):
-    """Always validate JSON content."""
-    return True
 
 
 class Agent(Schema):
@@ -53,6 +37,7 @@ class Agent(Schema):
 
 class PersonOrOrganizationSchema(Schema):
     """Person or Organization schema.
+
     Note:
         This code is original from: https://github.com/inveniosoftware/invenio-rdm-records/blob/ccc3b19e9f18a0779c1f937a890196771a93b0fc/invenio_rdm_records/services/schemas/metadata.py#L114
     """
@@ -193,8 +178,10 @@ class ResearchProjectMetadataSchema(Schema):
     # General descriptions
     #
     version = SanitizedUnicode()
-    title = SanitizedUnicode(required=True, validate=_not_blank(max=250))
-    description = SanitizedUnicode(validate=_not_blank(max=2000))
+    title = SanitizedUnicode(
+        required=True, validate=marshmallow_not_blank_field(max=250)
+    )
+    description = SanitizedUnicode(validate=marshmallow_not_blank_field(max=2000))
 
     subjects = fields.List(fields.Str())
     rights = fields.List(fields.Nested(ResearchProjectRightsSchema()))
@@ -215,7 +202,7 @@ class ResearchProjectMetadataSchema(Schema):
 class ResearchProjectSchema(BaseRecordSchema):
     """Schema for the Research Project metadata."""
 
-    id = SanitizedUnicode(validate=_not_blank(max=100), required=True)
+    id = SanitizedUnicode(validate=marshmallow_not_blank_field(max=100), required=True)
     metadata = NestedAttribute(ResearchProjectMetadataSchema, required=True)
     access = NestedAttribute(ResearchProjectAccessSchema, dump_only=True)
 

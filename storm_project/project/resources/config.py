@@ -11,18 +11,17 @@ from invenio_records_resources.resources import RecordResourceConfig
 class ResearchProjectResourceConfig(RecordResourceConfig):
     """Research Project resource configuration."""
 
+    # Used to control two different route
+    # prefixes with the same resource (general and user-specific)
+    # as defined below.
     url_prefix = ""
     blueprint_name = "research_project"
 
     routes = {
-        #
         # Routes prefix
-        #
         "projects-prefix": "/projects",
         "projects-user-prefix": "/user/projects",
-        #
-        # API Routes
-        #
+        # Base operations
         "list": "",
         "base": "",
         "item": "/<pid_value>",

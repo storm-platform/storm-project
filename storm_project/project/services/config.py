@@ -5,12 +5,17 @@
 # storm-project is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
+from storm_project.project.records.api import ResearchProject
+from storm_project.project.schema import ResearchProjectSchema
 
-from .components import PIDComponent, ResearchProjectAccessComponent
-from .permissions import ResearchProjectPermissionPolicy
-from ..schema import ResearchProjectSchema
+from storm_project.project.services.security.permissions import (
+    ResearchProjectPermissionPolicy,
+)
 
-from ..records.api import ResearchProject
+from storm_commons.services.components import (
+    BaseAccessComponent,
+    CustomPIDGeneratorComponent,
+)
 
 from invenio_records_resources.services.records.config import RecordServiceConfig
 from invenio_records_resources.services.records.components import MetadataComponent
@@ -49,8 +54,8 @@ class ResearchProjectServiceConfig(RecordServiceConfig):
     #
     components = [
         MetadataComponent,
-        PIDComponent,
-        ResearchProjectAccessComponent,
+        BaseAccessComponent,
+        CustomPIDGeneratorComponent,
     ]
 
 
