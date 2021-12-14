@@ -35,6 +35,16 @@
       }
     }
   },
+  "project": {
+    "type": "object",
+    "description": "Project object",
+    "additionalProperties": false,
+    "properties": {
+      "project": {
+        "type": "string"
+      }
+    }
+  },
   "agent": {
     "description": "An agent (user, software process, community, ...).",
     "oneOf": [
