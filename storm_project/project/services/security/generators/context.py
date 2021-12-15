@@ -16,7 +16,44 @@ from invenio_access import authenticated_user
 from invenio_records_permissions.generators import Generator
 
 
-class BaseProjectContextGenerator(Generator):
+class BaseStoredProjectContextGenerator(Generator):
+    """Generator to define a user as colaborator based on
+    the records information (Record without access field and index)."""
+
+    # Project API class used to access
+    # and handle the project informations.
+    project_api_cls = None
+
+    def needs(self, record=None, **kwargs):
+        """Needs to be a project user with access to the selected record."""
+        if record:
+            # creating the research project (api) to smooth
+            # the data selection.
+            research_project = self.project_api_cls(
+                data=record.project.data, model=record.project
+            )
+
+            # project context: this generator use the project
+            # as basis to define the ``needs``
+            owners = research_project.access.owners
+            contributors = research_project.access.contributors
+
+            people = set([o.agent_id for o in [*owners, *contributors]])
+
+            # checking the context (flask.request is temporary)
+            project_id = request.view_args.get("project_id")
+            if project_id != research_project.pid.pid_value:
+                return []
+
+            # creating the needs only for project users
+            return [UserNeed(i) for i in {record.user_id}.intersection(people)]
+
+        # temporary: in the future, we can improve
+        # this verifications using roles.
+        return UserInProject().needs(record)
+
+
+class BaseIndexedProjectContextGenerator(Generator):
     """Base generator to use the project context in the record permissions."""
 
     def query_filter(self, identity=None, **kwargs):
@@ -37,7 +74,7 @@ class BaseProjectContextGenerator(Generator):
         )
 
 
-class UserInProject(BaseProjectContextGenerator):
+class UserInProject(BaseIndexedProjectContextGenerator):
     """Generator to define if user has access to
     the selected project."""
 
@@ -62,7 +99,7 @@ class UserInProject(BaseProjectContextGenerator):
         return []
 
 
-class BaseRecordColaboratorGenerator(BaseProjectContextGenerator):
+class BaseRecordColaboratorGenerator(BaseIndexedProjectContextGenerator):
     """Generic generator to define a user, inside the project,
     with access to the records.
 
@@ -153,7 +190,9 @@ class VersionedProjectRecordColaborator(BaseRecordColaboratorGenerator):
 
 __all__ = (
     "UserInProject",
-    "BaseProjectContextGenerator",
+    "BaseIndexedProjectContextGenerator",
+    "BaseRecordColaboratorGenerator",
     "ProjectRecordColaborator",
     "VersionedProjectRecordColaborator",
+    "BaseStoredProjectContextGenerator",
 )
