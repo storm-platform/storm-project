@@ -22,17 +22,8 @@ from marshmallow_utils.fields import (
 
 from marshmallow_utils.schemas import GeometryObjectSchema
 
-from storm_commons.schema.validators import marshmallow_not_blank_field
+from storm_commons.schemas.validators import marshmallow_not_blank_field
 from invenio_records_resources.services.records.schema import BaseRecordSchema
-
-
-class Agent(Schema):
-    """An agent schema.
-    Note:
-        This code is original from: https://github.com/inveniosoftware/invenio-rdm-records/blob/d7e7c7a2a44986de88e2d7941722bc72fd7dc345/invenio_rdm_records/services/schemas/parent/access.py#L42
-    """
-
-    user = fields.Integer(required=True)
 
 
 class PersonOrOrganizationSchema(Schema):
@@ -154,13 +145,6 @@ class FeatureSchema(Schema):
     features = fields.List(fields.Nested(LocationSchema))
 
 
-class ResearchProjectAccessSchema(Schema):
-    """Research Project schema."""
-
-    owned_by = fields.List(fields.Nested(Agent), required=False)
-    contributed_by = fields.List(fields.Nested(Agent), required=False)
-
-
 class ResearchProjectRightsSchema(Schema):
     """Research Project Rights schema."""
 
@@ -204,7 +188,6 @@ class ResearchProjectSchema(BaseRecordSchema):
 
     id = SanitizedUnicode(validate=marshmallow_not_blank_field(max=100), required=True)
     metadata = NestedAttribute(ResearchProjectMetadataSchema, required=True)
-    access = NestedAttribute(ResearchProjectAccessSchema, dump_only=True)
 
 
 __all__ = "ResearchProjectSchema"
