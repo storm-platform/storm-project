@@ -134,7 +134,7 @@ class ProjectRecordColaborator(BaseRecordColaboratorGenerator):
     record informations (without parent)."""
 
     def _select_record_rule(self, record, **kwargs):
-        # note: Is assumed that the `parent` attribute use the `RecordAccessField`.
+        # note: Is assumed that the attribute `access` is a `RecordAccessField`.
         return record.access.owners, record.access.contributors
 
 
