@@ -18,9 +18,6 @@ tests_require = [
     "pytest-invenio>=1.4.0",
 ]
 
-invenio_db_version = ">=1.0.9,<2.0.0"
-invenio_search_version = ">=1.4.2,<2.0.0"
-
 extras_require = {
     "docs": [
         "Sphinx>=3,<4",
