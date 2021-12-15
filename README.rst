@@ -4,9 +4,9 @@
     storm-project is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
 
-================================================
- Research Project module for the Storm platform
-================================================
+==============
+ Storm Project
+==============
 
 .. image:: https://img.shields.io/badge/license-MIT-green
         :target: https://github.com/storm-platform/storm-project/blob/master/LICENSE
