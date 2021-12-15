@@ -14,6 +14,10 @@
     "pid": {
       "$ref": "local://definitions-v1.0.0.json#/internal-pid"
     },
+    "is_finished": {
+      "type": "boolean",
+      "description": "Flag indicating that the project is finished."
+    },
     "access": {
       "type": "object",
       "description": "Resource access information",

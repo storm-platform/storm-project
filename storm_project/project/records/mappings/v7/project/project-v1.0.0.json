@@ -10,7 +10,7 @@
         "properties": {
           "owned_by": {
             "properties": {
-              "user": {
+              "project": {
                 "type": "keyword"
               }
             }
