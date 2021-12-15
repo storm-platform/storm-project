@@ -11,7 +11,7 @@ from invenio_records_permissions.generators import (
 )
 
 from invenio_records_permissions.policies import BasePermissionPolicy
-from storm_project.project.services.security.generators import (
+from storm_project.project.services.security.generators.record import (
     ResearchProjectOwner,
     ResearchProjectContributor,
 )

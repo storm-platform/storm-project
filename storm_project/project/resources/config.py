@@ -15,7 +15,7 @@ class ResearchProjectResourceConfig(RecordResourceConfig):
     # prefixes with the same resource (general and user-specific)
     # as defined below.
     url_prefix = ""
-    blueprint_name = "research_project"
+    blueprint_name = "storm_research_projects"
 
     routes = {
         # Routes prefix
