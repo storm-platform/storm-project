@@ -120,8 +120,9 @@ class ProjectRecordUser(ProjectRecordQueryFilterGenerator):
     only_owners = False
     """Flag to enable only project owners as valid project users (Default is false)."""
 
-    def __init__(self, only_owners=False):
+    def __init__(self, use_parent_access=True, only_owners=False):
         self.only_owners = only_owners
+        super(ProjectRecordUser, self).__init__(use_parent_access)
 
     def needs(self, record=None, **kwargs):
         """Needs to define if the user has access to the selected project."""
