@@ -9,12 +9,12 @@ from flask import g
 from flask_resources import route, response_handler, resource_requestctx
 
 from invenio_records_resources.resources.records.utils import es_preference
-from invenio_records_resources.resources.records.resource import RecordResource
 
+from storm_commons.admin.resource import AdminRecordResource
 from storm_commons.resources.parsers import request_view_args, request_search_args
 
 
-class ResearchProjectResource(RecordResource):
+class ResearchProjectResource(AdminRecordResource):
     """Research project API resource."""
 
     def create_url_rules(self):
@@ -53,6 +53,22 @@ class ResearchProjectResource(RecordResource):
                 "POST",
                 join_url(routes["projects-prefix"], routes["finish-item"]),
                 self.finish_project,
+            ),
+            # Access control
+            route(
+                "POST",
+                join_url(routes["projects-prefix"], routes["add-item-agent"]),
+                self.admin_add_agent,
+            ),
+            route(
+                "DELETE",
+                join_url(routes["projects-prefix"], routes["remove-item-agent"]),
+                self.admin_remove_agent,
+            ),
+            route(
+                "GET",
+                join_url(routes["projects-prefix"], routes["list-item-agent"]),
+                self.admin_list_agents,
             ),
         ]
 

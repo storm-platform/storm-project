@@ -6,14 +6,15 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 from invenio_records_resources.services.records.components import ServiceComponent
+from storm_commons.services.components import RecordAccessDefinitionComponent
 
 
-class ProjectAccessDefinitionComponent(ServiceComponent):
+class ProjectAccessDefinitionComponent(RecordAccessDefinitionComponent):
     """Access component for projects.
 
     This component defines the access field of the project. Since the project
-    have a special case in the access, we don’t use the storm-commons
-    components (Only in this case).
+    have a special access case, here the ``create`` method provided by the
+    ``storm-commons`` is overwritten.
     """
 
     def create(self, identity, data=None, record=None, **kwargs):

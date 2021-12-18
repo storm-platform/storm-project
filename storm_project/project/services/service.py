@@ -8,11 +8,11 @@
 from elasticsearch_dsl import Q
 from invenio_records_resources.services import LinksTemplate
 
-from invenio_records_resources.services.records import RecordService
+from storm_commons.admin.service import AdminRecordService
 from invenio_records_resources.services.uow import unit_of_work, RecordCommitOp
 
 
-class ResearchProjectService(RecordService):
+class ResearchProjectService(AdminRecordService):
     """Research project service."""
 
     def __init__(self, config):
