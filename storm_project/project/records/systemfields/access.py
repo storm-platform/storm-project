@@ -10,6 +10,8 @@ from invenio_accounts.models import User as InvenioUser
 from storm_commons.records.systemfields.models import Agent, AgentList
 from storm_commons.records.systemfields.fields.access import RecordAccess
 
+from storm_project.project.records.models import ResearchProjectMetadata
+
 
 class ProjectAgent(Agent):
     """Project access agent."""
@@ -17,13 +19,14 @@ class ProjectAgent(Agent):
     #
     # Supported types
     #
-    agent_cls = {"user": InvenioUser}  # projects don't have `project` agents.
+    agent_cls = {"user": InvenioUser, "project": ResearchProjectMetadata}
 
     #
     # Loaders
     #
     agent_cls_loaders = {
         "user": lambda x: InvenioUser.query.get(x),
+        "project": lambda x: ResearchProjectMetadata.query.get(x),
     }
 
 
