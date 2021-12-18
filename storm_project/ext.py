@@ -35,7 +35,7 @@ class StormProject(object):
         """Initialize configuration."""
         for k in dir(config):
             # Configurations for the storm-oauth
-            if k.startswith("STORM_PROJECTS_"):
+            if k.startswith("STORM_PROJECT_"):
                 app.config.setdefault(k, getattr(config, k))
 
     def init_services(self, app):
