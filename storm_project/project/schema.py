@@ -186,8 +186,10 @@ class ResearchProjectMetadataSchema(Schema):
 class ResearchProjectSchema(BaseRecordSchema):
     """Schema for the Research Project metadata."""
 
-    id = SanitizedUnicode(validate=marshmallow_not_blank_field(max=100), required=True)
+    id = SanitizedUnicode(validate=marshmallow_not_blank_field(max=64), required=True)
     metadata = NestedAttribute(ResearchProjectMetadataSchema, required=True)
+
+    is_finished = fields.Boolean(dump_only=True)
 
 
 __all__ = "ResearchProjectSchema"

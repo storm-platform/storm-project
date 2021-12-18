@@ -25,6 +25,8 @@ class ResearchProjectResourceConfig(RecordResourceConfig):
         "list": "",
         "base": "",
         "item": "/<pid_value>",
+        # Status control
+        "finish-item": "/<pid_value>/actions/finish",
     }
 
 

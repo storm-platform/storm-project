@@ -14,8 +14,9 @@ from storm_project.project.services.security.permissions import (
 
 from storm_commons.services.components import (
     CustomPIDGeneratorComponent,
-    RecordAccessDefinitionComponent,
+    FinishStatusComponent,
 )
+from storm_project.project.services.components import ProjectAccessDefinitionComponent
 
 from invenio_records_resources.services.records.config import RecordServiceConfig
 from invenio_records_resources.services.records.components import MetadataComponent
@@ -54,8 +55,9 @@ class ResearchProjectServiceConfig(RecordServiceConfig):
     #
     components = [
         MetadataComponent,
-        RecordAccessDefinitionComponent,
+        ProjectAccessDefinitionComponent,
         CustomPIDGeneratorComponent,
+        FinishStatusComponent,
     ]
 
 

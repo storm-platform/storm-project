@@ -6,14 +6,12 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 from flask import g
-
 from flask_resources import route, response_handler, resource_requestctx
-from invenio_records_resources.resources.records.resource import (
-    RecordResource,
-    request_search_args,
-)
 
 from invenio_records_resources.resources.records.utils import es_preference
+from invenio_records_resources.resources.records.resource import RecordResource
+
+from storm_commons.resources.parsers import request_view_args, request_search_args
 
 
 class ResearchProjectResource(RecordResource):
@@ -50,6 +48,12 @@ class ResearchProjectResource(RecordResource):
                 join_url(routes["projects-user-prefix"], routes["list"]),
                 self.search_user_research_projects,
             ),
+            # Status control
+            route(
+                "POST",
+                join_url(routes["projects-prefix"], routes["finish-item"]),
+                self.finish_project,
+            ),
         ]
 
         return url_rules
@@ -69,3 +73,13 @@ class ResearchProjectResource(RecordResource):
         )
 
         return hits.to_dict(), 200
+
+    @request_view_args
+    @response_handler()
+    def finish_project(self):
+        """Finish a research project."""
+        edited_project = self.service.finish_project(
+            g.identity,
+            resource_requestctx.view_args["pid_value"],
+        )
+        return edited_project.to_dict(), 200

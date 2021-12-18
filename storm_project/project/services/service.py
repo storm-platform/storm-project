@@ -9,6 +9,7 @@ from elasticsearch_dsl import Q
 from invenio_records_resources.services import LinksTemplate
 
 from invenio_records_resources.services.records import RecordService
+from invenio_records_resources.services.uow import unit_of_work, RecordCommitOp
 
 
 class ResearchProjectService(RecordService):
@@ -49,6 +50,36 @@ class ResearchProjectService(RecordService):
             ),
             links_item_tpl=self.links_item_tpl,
         )
+
+    @unit_of_work()
+    def finish_project(self, identity, project_id, uow=None):
+        """Finish a research project.
+
+        Args:
+            identity (flask_principal.Identity): User identity
+
+            project_id (str): Research project id
+
+        Returns:
+            Dict: The updated Research Project document.
+        """
+        # loading the record
+        record = self.record_cls.pid.resolve(project_id)
+
+        # checking permissions
+        self.require_permission(identity, "finish", record=record)
+
+        self.run_components(
+            "finish",
+            identity,
+            record=record,
+            uow=uow,
+        )
+
+        # Persist record (DB and index)
+        uow.register(RecordCommitOp(record, self.indexer))
+
+        return self.result_item(self, identity, record, links_tpl=self.links_item_tpl)
 
 
 __all__ = "ResearchProjectService"
