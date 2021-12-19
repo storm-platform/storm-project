@@ -127,21 +127,17 @@ class ProjectRecordUser(ProjectRecordQueryFilterGenerator):
     def needs(self, record=None, **kwargs):
         """Needs to define if the user has access to the selected project."""
 
-        # we only check for a project context when the record is None, because
-        # is assumed that record == None is a ``create`` operation.
-        if record is None:
-            # extracting the data
-            project_owners = current_project._obj.access.owners
-            project_contributors = current_project._obj.access.contributors
+        # extracting the data
+        project_owners = current_project._obj.access.owners
+        project_contributors = current_project._obj.access.contributors
 
-            project_users = project_owners
-            if not self.only_owners:
-                project_users = [*project_users, *project_contributors]
+        project_users = project_owners
+        if not self.only_owners:
+            project_users = [*project_users, *project_contributors]
 
-            # select only the users.
-            valid_project_ids = [
-                obj.agent_id for obj in project_users if obj.agent_type == "user"
-            ]
+        # select only the users.
+        valid_project_ids = [
+            obj.agent_id for obj in project_users if obj.agent_type == "user"
+        ]
 
-            return [UserNeed(uid) for uid in set(valid_project_ids)]
-        return []
+        return [UserNeed(uid) for uid in set(valid_project_ids)]
