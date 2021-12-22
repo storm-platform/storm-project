@@ -9,11 +9,17 @@ from elasticsearch_dsl import Q
 from invenio_records_resources.services import LinksTemplate
 
 from storm_commons.admin.service import AdminRecordService
+from storm_commons.services.links import ActionLinksTemplate
 from invenio_records_resources.services.uow import unit_of_work, RecordCommitOp
 
 
 class ResearchProjectService(AdminRecordService):
     """Research project service."""
+
+    @property
+    def links_item_tpl(self):
+        """Item links template."""
+        return ActionLinksTemplate(self.config.links_item, self.config.links_action)
 
     def __init__(self, config):
         super(ResearchProjectService, self).__init__(config)

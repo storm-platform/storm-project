@@ -27,6 +27,11 @@ from invenio_records_resources.services.records.links import (
 )
 
 
+def is_not_finished(record, ctx):
+    """Check if the project is not finished."""
+    return not record.is_finished
+
+
 class ResearchProjectServiceConfig(RecordServiceConfig):
     """ResearchProject service configuration."""
 
@@ -46,6 +51,12 @@ class ResearchProjectServiceConfig(RecordServiceConfig):
     # Service configuration
     #
     links_item = {"self": RecordLink("{+api}/projects/{id}")}
+
+    links_action = {
+        "finish": RecordLink(
+            "{+api}/projects/{id}/actions/finish", when=is_not_finished
+        ),
+    }
 
     links_search = pagination_links("{+api}/projects{?args*}")
     links_search_user = pagination_links("{+api}/user/projects{?args*}")

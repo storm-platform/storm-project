@@ -5,7 +5,6 @@
 # storm-project is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-from invenio_records_resources.services.records.components import ServiceComponent
 from storm_commons.services.components import RecordAccessDefinitionComponent
 
 
