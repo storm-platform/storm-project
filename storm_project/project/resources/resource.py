@@ -39,11 +39,6 @@ class ResearchProjectResource(AdminRecordResource):
                 "PUT", join_url(routes["projects-prefix"], routes["item"]), self.update
             ),
             route(
-                "DELETE",
-                join_url(routes["projects-prefix"], routes["item"]),
-                self.delete,
-            ),
-            route(
                 "GET",
                 join_url(routes["projects-user-prefix"], routes["list"]),
                 self.search_user_research_projects,
